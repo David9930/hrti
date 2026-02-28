@@ -1,1 +1,92 @@
+/* ============================================
+   medical.css - Medical Imaging page specific styles
+   Horse & Rider Thermal Imaging
+   ============================================ */
 
+/* --- Page Title --- */
+.medical-content h1 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #3c3c8a;
+  margin-bottom: 16px;
+}
+
+.medical-content h2 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #333;
+  margin: 24px 0 10px;
+}
+
+/* --- Screening Type Headers --- */
+.medical-content .screen-type {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-decoration: underline;
+  margin: 20px 0 8px;
+  color: #222;
+}
+
+/* --- Featured Image --- */
+.medical-content .featured-img {
+  float: right;
+  margin: 0 0 16px 20px;
+  border-radius: 4px;
+  width: 320px;
+}
+
+/* --- Body Text --- */
+.medical-content p {
+  font-size: 1.05em;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  color: #333;
+}
+
+.medical-content ul {
+  margin: 0 0 20px 24px;
+  line-height: 1.8;
+  font-size: 1.05em;
+  color: #333;
+}
+
+.medical-content ul li {
+  margin-bottom: 4px;
+}
+
+/* --- Recognition Block --- */
+.medical-content .recognition {
+  font-size: 1em;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.medical-content .recognition strong {
+  color: #222;
+}
+
+/* --- Other Screenings --- */
+.medical-content .other-screens {
+  font-weight: 700;
+  font-size: 1.05em;
+  line-height: 2;
+  color: #222;
+}
+
+/* --- Clearfix --- */
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+@media (max-width: 640px) {
+  .medical-content .featured-img {
+    float: none;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 16px;
+  }
+}
