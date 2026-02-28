@@ -1,0 +1,84 @@
+/* ============================================
+   equine.css - Equine Imaging page specific styles
+   Horse & Rider Thermal Imaging
+   ============================================ */
+
+/* --- Page Title --- */
+.equine-content h1 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #3c3c8a;
+  margin-bottom: 20px;
+}
+
+/* --- Three Image Row --- */
+.image-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.image-row img {
+  border-radius: 4px;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+.image-row .img-landscape {
+  width: 300px;
+  height: 225px;
+}
+
+.image-row .img-portrait {
+  width: 229px;
+  height: 300px;
+}
+
+.image-row .img-small {
+  width: 245px;
+  height: 184px;
+  align-self: center;
+}
+
+/* --- Body Text --- */
+.equine-content p {
+  font-size: 1.05em;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.equine-content ul {
+  margin: 0 0 20px 24px;
+  line-height: 1.8;
+  font-size: 1.05em;
+  color: #333;
+}
+
+.equine-content ul li {
+  margin-bottom: 4px;
+}
+
+/* --- Fees Note Block --- */
+.equine-content .fees-notes {
+  font-size: 0.97em;
+  color: #555;
+  line-height: 1.7;
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .image-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-row img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 320px;
+  }
+}
