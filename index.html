@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!--
+  Name of File: index.html
+  Created: Feb 28th, 2026
+  Created By: Claude and Uncle Burnie (aka Computer Genius)
+  Changes Made: Initial build - homepage with slider, YouTube embed, two-column cards, sidebar
+-->
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horse &amp; Rider Thermal Imaging | Covering the Greater Philadelphia Area</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar container">
+    <div class="top-bar-social">
+      <a href="https://www.facebook.com/patti.lukas.3?fref=ts" target="_blank" title="Facebook" class="icon-facebook">
+        <span class="social-icon-text">f</span>
+      </a>
+      <a href="http://twitter.com/PattiLukas" target="_blank" title="Twitter" class="icon-twitter">
+        <span class="social-icon-text">t</span>
+      </a>
+      <a href="https://www.linkedin.com/in/patti-lukas" target="_blank" title="LinkedIn" class="icon-linkedin">
+        <span class="social-icon-text">in</span>
+      </a>
+    </div>
+    <div class="top-bar-contact">
+      Call Us! <a href="tel:610-888-2807">610.888.2807</a> &nbsp;&nbsp;
+      Email: <a href="mailto:hiddenreigns@gmail.com">hiddenreigns@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- Header Logos -->
+  <header class="site-header container">
+    <div class="header-logos">
+      <img src="images/thermography1.png" alt="Horse & Rider Thermal Imaging">
+      <img src="images/equine1.png" alt="Equine Thermal Imaging">
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="container">
+      <button class="nav-toggle" onclick="toggleNav()">&#9776; Menu</button>
+      <ul id="main-menu">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="equine-imaging.html">Equine Imaging</a></li>
+        <li><a href="medical-imaging.html">Medical Imaging</a></li>
+        <li><a href="ir-gallery.html">IR Gallery</a></li>
+        <li><a href="protocols.html">Protocols</a></li>
+        <li><a href="forms.html">Forms</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Slider -->
+  <div class="slider-wrapper">
+    <img src="images/FLIR0009.jpg" alt="Thermal Imaging" class="active">
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="page-wrapper">
+
+      <!-- Content -->
+      <main class="content-main">
+        <div class="home-intro">
+
+          <h1>
+            <iframe src="https://www.youtube.com/embed/PPVk341CB7M?rel=0" width="560" height="315"
+              frameborder="0" allowfullscreen style="max-width:100%;display:block;margin-bottom:16px;"></iframe>
+            Certified Equine &amp; Medical Infrared Thermographer
+          </h1>
+
+          <p class="tagline">
+            <span class="what-label">WHAT</span> is Clinical Thermal Imaging?&nbsp;
+            Painless, Pro-active, Preventative, Non-Invasive, Compression and radiation-free!
+          </p>
+
+          <div class="clearfix">
+            <img src="images/patti-imaging.jpg" alt="Patti Lukas - Thermal Imaging" class="patti-photo">
+
+            <div class="qa-block">
+              <span class="q-label">WHO</span> should have a thermal scan?&nbsp;
+              Everyone! Men, Women, children, Horses, Dogs and other animals
+            </div>
+
+            <div class="qa-block">
+              <span class="q-label">WHY?</span>
+              Your skin is the largest organ of the body and has unique and distinctive thermal patterns
+              that are specific to you. Skin patterns demonstrate hot and cold areas that are consistent
+              with the body part involved in that region based on the sympathetic nervous system and are
+              imaged with highly sensitive medical INFRARED cameras.
+            </div>
+
+            <div class="qa-block">
+              <span class="q-label">WHEN?</span>
+              Every year or as often as needed — and can be used to monitor treatment or as recommended
+              by the physician, vet, trainer, or farrier.
+            </div>
+          </div>
+
+          <p class="cta-center">
+            Do YOU want this AMAZING TECHNOLOGY for yourself, OR your HORSE?
+          </p>
+
+          <p class="where-line">
+            <span class="q-label">WHERE?</span> Serving Eastern PA — Chester County — will travel
+          </p>
+
+          <p class="call-line">Call Today (610) 888-2807</p>
+
+          <hr>
+
+          <!-- Two Cards -->
+          <div class="home-cards">
+            <div class="home-card">
+              <a href="medical-imaging.html">
+                <img src="images/thermography1.png" alt="Medical Thermal Imaging">
+              </a>
+              <p>Have questions about what's going on with your health? Need answers to hidden aches,
+                pains, or upset stomach? Wondering about your cardiovascular vitality? Curious about
+                what your body is trying to show you? Looking for an alternative to evaluate your
+                breasts? Feel like you are aging prematurely? Want peace of mind or just a general
+                health check? Let infrared technology help reveal these answers and more without any
+                radiation, compression or poking whatsoever.</p>
+              <a href="medical-imaging.html" class="btn-info">Click here for more!</a>
+            </div>
+
+            <div class="home-card">
+              <a href="equine-imaging.html">
+                <img src="images/equine1.png" alt="Equine Thermal Imaging">
+              </a>
+              <p>Preparing for an event such as a race, show or competition? Want to make sure
+                everything is as it should be with your horse? Not sure what your horse is trying
+                to tell you? Various feed changes and supplements not doing the trick? Not sure if
+                your saddle is comfortable for your horse? Want to buy the perfect horse but need
+                a noninvasive prepurchase exam? Let my camera help you.</p>
+              <a href="equine-imaging.html" class="btn-info">Click here for more!</a>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+
+        <div class="sidebar-widget">
+          <img src="images/HiddenReigns-360x360.png" alt="Equine and Medical Thermal Imaging">
+        </div>
+
+        <div class="sidebar-widget">
+          <h2>Office Location</h2>
+          <p>312 Dampman Road<br>
+             Honey Brook, PA 19344<br>
+             <a href="tel:6108882807">610.888.2807</a>
+          </p>
+        </div>
+
+        <div class="sidebar-widget">
+          <h2>United Infrared Certified</h2>
+          <img src="images/UnitedInfraredSmallTypeLogo.jpg" alt="United Infrared Certified">
+        </div>
+
+        <div class="sidebar-widget">
+          <h2>EquineIR Trained</h2>
+          <a href="http://www.equineir.com" target="_blank">
+            <img src="images/EquineIRLogo-300x187.png" alt="EquineIR Trained" style="background-color:white;">
+          </a>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <h4>Patti</h4>
+      <p>Honey Brook, PA<br>
+         <a href="mailto:palukas88@gmail.com">palukas88@gmail.com</a><br>
+         <a href="tel:610-888-2807">(610) 888-2807</a>
+      </p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Mobile nav toggle
+    function toggleNav() {
+      var menu = document.getElementById('main-menu');
+      menu.classList.toggle('open');
+    }
+
+    // Simple image slider
