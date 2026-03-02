@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!--
+  Name of File: equine-imaging.html
+  Created: Feb 28th, 2026
+  Created By: Claude and Uncle Burnie (aka Computer Genius)
+  Changes Made: Full modern redesign matching indextest.html design system. Self-contained CSS.
+                Three-image hero, service use-cases, fee table, saddle fit download, credentials, CTA footer.
+-->
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Equine Imaging | Horse &amp; Rider Thermal Imaging</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --navy:      #0d1b2a;
+      --navy-mid:  #1a2e42;
+      --navy-soft: #253d54;
+      --thermal:   #c8601a;
+      --thermal-lt:#e07a38;
+      --cream:     #f7f4ef;
+      --white:     #ffffff;
+      --text:      #1c2832;
+      --text-soft: #4a5a68;
+      --border:    #dde3e9;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --radius:    6px;
+      --shadow-sm: 0 2px 8px rgba(13,27,42,0.10);
+      --shadow-md: 0 6px 24px rgba(13,27,42,0.14);
+      --shadow-lg: 0 16px 48px rgba(13,27,42,0.18);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    img  { max-width: 100%; height: auto; display: block; }
+    a    { color: var(--thermal); text-decoration: none; }
+    a:hover { color: var(--thermal-lt); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* UTILITY BAR */
+    .utility-bar { background: var(--navy); padding: 9px 0; font-size: 0.82em; font-weight: 500; }
+    .utility-bar .inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .utility-bar .social-links { display: flex; gap: 14px; }
+    .utility-bar .social-links a { color: rgba(255,255,255,0.55); font-weight: 600; letter-spacing: 0.05em; transition: color var(--transition); }
+    .utility-bar .social-links a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info { color: rgba(255,255,255,0.75); display: flex; gap: 24px; align-items: center; }
+    .utility-bar .contact-info a { color: rgba(255,255,255,0.90); transition: color var(--transition); }
+    .utility-bar .contact-info a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info .divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+
+    /* NAV */
+    .main-nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .nav-brand img { height: 38px; width: auto; }
+    .nav-links { display: flex; list-style: none; gap: 2px; }
+    .nav-links li a { display: block; padding: 8px 13px; font-size: 0.86em; font-weight: 500; color: var(--text-soft); border-radius: var(--radius); transition: background var(--transition), color var(--transition); white-space: nowrap; }
+    .nav-links li a:hover { background: var(--cream); color: var(--navy); }
+    .nav-links li.active a { background: var(--cream); color: var(--thermal); font-weight: 600; }
+    .nav-toggle { display: none; background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 7px 11px; cursor: pointer; font-size: 1.1em; color: var(--navy); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--navy); padding: 52px 0 48px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 45%; background: url('images/ir_horse.jpg') center/cover no-repeat; opacity: 0.2; }
+    .page-hero .hero-content { position: relative; z-index: 1; max-width: 620px; }
+    .page-hero .page-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal-lt); margin-bottom: 12px; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2em, 4vw, 3.2em); font-weight: 600; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+    .page-hero .hero-sub { font-size: 1.05em; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 28px; }
+    .hero-btn { display: inline-block; background: var(--thermal); color: white; padding: 13px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.92em; transition: background var(--transition), transform var(--transition); }
+    .hero-btn:hover { background: var(--thermal-lt); color: white; transform: translateY(-2px); }
+
+    /* IMAGE TRIO */
+    .image-trio { background: var(--cream); padding: 40px 0; border-bottom: 1px solid var(--border); }
+    .trio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .trio-grid img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition); }
+    .trio-grid img:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
+
+    /* INTRO */
+    .intro-section { padding: 64px 0; background: var(--white); }
+    .section-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal); margin-bottom: 10px; }
+    .section-h2 { font-family: var(--font-display); font-size: clamp(1.6em, 3vw, 2.3em); font-weight: 600; color: var(--navy); margin-bottom: 20px; line-height: 1.2; }
+    .intro-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .intro-text p { font-size: 0.97em; line-height: 1.78; color: var(--text-soft); margin-bottom: 16px; }
+    .intro-text .advantage { background: var(--cream); border-left: 3px solid var(--thermal); padding: 14px 18px; border-radius: 0 var(--radius) var(--radius) 0; margin-top: 20px; font-size: 0.92em; line-height: 1.65; color: var(--text); font-style: italic; }
+
+    /* USE CASES */
+    .use-cases { background: var(--cream); padding: 0 0 0 0; }
+    .use-case-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal); margin-bottom: 10px; }
+    .use-cases h2 { font-family: var(--font-display); font-size: clamp(1.4em, 2.5vw, 2em); font-weight: 600; color: var(--navy); margin-bottom: 24px; }
+    .use-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .use-item { display: flex; align-items: flex-start; gap: 12px; background: var(--white); padding: 16px 18px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+    .use-item .use-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--thermal); flex-shrink: 0; margin-top: 5px; }
+    .use-item span { font-size: 0.92em; font-weight: 500; color: var(--text); line-height: 1.5; }
+
+    /* COMBINED SECTION (intro + use cases side by side) */
+    .combined-section { padding: 64px 0; background: var(--white); }
+    .combined-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .combined-right { background: var(--cream); border-radius: 12px; padding: 32px; }
+    .combined-right h3 { font-family: var(--font-display); font-size: 1.3em; font-weight: 600; color: var(--navy); margin-bottom: 20px; }
+
+    /* FEES TABLE */
+    .fees-section { padding: 64px 0; background: var(--cream); }
+    .fees-layout { display: grid; grid-template-columns: 1fr 380px; gap: 56px; align-items: start; }
+    .fees-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+    .fees-table thead th { background: var(--navy); color: white; padding: 12px 16px; font-size: 0.82em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-align: left; }
+    .fees-table thead th:last-child { text-align: right; }
+    .fees-table tbody tr { border-bottom: 1px solid var(--border); transition: background var(--transition); }
+    .fees-table tbody tr:hover { background: rgba(200,96,26,0.05); }
+    .fees-table tbody td { padding: 13px 16px; font-size: 0.92em; color: var(--text); }
+    .fees-table tbody td:last-child { text-align: right; font-weight: 600; color: var(--thermal); }
+    .fees-table tfoot td { padding: 12px 16px; font-size: 0.82em; color: var(--text-soft); font-style: italic; border-top: 2px solid var(--border); }
+    .fees-notes { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .fees-notes p { font-size: 0.88em; color: var(--text-soft); line-height: 1.6; padding-left: 12px; border-left: 2px solid var(--border); }
+    .fees-aside { background: var(--navy); border-radius: 10px; padding: 28px; color: white; }
+    .fees-aside h3 { font-family: var(--font-display); font-size: 1.3em; font-weight: 600; margin-bottom: 14px; color: var(--thermal-lt); }
+    .fees-aside p { font-size: 0.9em; line-height: 1.7; color: rgba(255,255,255,0.72); margin-bottom: 20px; }
+    .fees-aside .contact-link { display: block; background: var(--thermal); color: white; text-align: center; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; font-size: 0.9em; transition: background var(--transition); }
+    .fees-aside .contact-link:hover { background: var(--thermal-lt); color: white; }
+
+    /* DOWNLOAD SADDLE FIT */
+    .download-bar { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0; }
+    .dl-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .dl-text h3 { font-family: var(--font-display); font-size: 1.3em; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .dl-text p { font-size: 0.9em; color: var(--text-soft); }
+    .dl-btn { display: inline-block; background: var(--navy); color: white; padding: 12px 26px; border-radius: var(--radius); font-weight: 600; font-size: 0.9em; transition: background var(--transition); }
+    .dl-btn:hover { background: var(--navy-soft); color: white; }
+
+    /* CREDENTIALS */
+    .credentials-bar { padding: 40px 0; background: var(--cream); border-bottom: 1px solid var(--border); }
+    .cred-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .cred-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .cred-item img { height: 52px; width: auto; opacity: 0.85; filter: grayscale(20%); transition: opacity var(--transition), filter var(--transition); }
+    .cred-item img:hover { opacity: 1; filter: grayscale(0%); }
+    .cred-item span { font-size: 0.78em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+    .cred-divider { width: 1px; height: 56px; background: var(--border); }
+
+    /* CTA */
+    .cta-section { padding: 64px 0; background: var(--navy); text-align: center; }
+    .cta-section h2 { font-family: var(--font-display); font-size: clamp(1.6em, 3vw, 2.4em); font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .cta-section p { font-size: 1em; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary { display: inline-block; background: var(--thermal); color: white; padding: 15px 32px; border-radius: var(--radius); font-weight: 600; font-size: 0.95em; transition: background var(--transition), transform var(--transition); }
+    .cta-btn-primary:hover { background: var(--thermal-lt); color: white; transform: translateY(-2px); }
+    .cta-btn-outline { display: inline-block; background: transparent; color: white; padding: 15px 32px; border-radius: var(--radius); font-weight: 600; font-size: 0.95em; border: 1.5px solid rgba(255,255,255,0.35); transition: border-color var(--transition), background var(--transition); }
+    .cta-btn-outline:hover { border-color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); color: white; }
+
+    /* FOOTER */
+    .site-footer { background: #07111c; padding: 32px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { font-family: var(--font-display); font-size: 1.1em; color: rgba(255,255,255,0.7); }
+    .footer-contact { text-align: right; font-size: 0.88em; color: rgba(255,255,255,0.5); line-height: 1.8; }
+    .footer-contact a { color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    .footer-contact a:hover { color: var(--thermal-lt); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero .hero-content { animation: fadeUp 0.6s ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .trio-grid { grid-template-columns: 1fr 1fr; }
+      .trio-grid img:last-child { display: none; }
+      .combined-grid { grid-template-columns: 1fr; }
+      .fees-layout { grid-template-columns: 1fr; }
+      .use-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 62px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 8px 16px 16px; box-shadow: var(--shadow-md); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .page-hero::before { display: none; }
+      .trio-grid { grid-template-columns: 1fr; }
+      .trio-grid img { display: block !important; height: 180px; }
+      .dl-inner { flex-direction: column; text-align: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- UTILITY BAR -->
+  <div class="utility-bar">
+    <div class="container inner">
+      <div class="social-links">
+        <a href="https://www.facebook.com/patti.lukas.3" target="_blank">FB</a>
+        <a href="http://twitter.com/PattiLukas" target="_blank">TW</a>
+        <a href="https://www.linkedin.com/in/patti-lukas" target="_blank">LI</a>
+      </div>
+      <div class="contact-info">
+        <a href="tel:610-888-2807">610.888.2807</a>
+        <div class="divider"></div>
+        <a href="mailto:hiddenreigns@gmail.com">hiddenreigns@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <img src="images/thermography1.png" alt="Horse & Rider Thermal Imaging">
+      </div>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">&#9776;</button>
+      <ul class="nav-links" id="main-menu">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="equine-imaging.html">Equine Imaging</a></li>
+        <li><a href="medical-imaging.html">Medical Imaging</a></li>
+        <li><a href="ir-gallery.html">IR Gallery</a></li>
+        <li><a href="protocols.html">Protocols</a></li>
+        <li><a href="forms.html">Forms</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="page-label">Equine &amp; Pet Thermal Imaging</p>
+        <h1>Find the Answer<br>Before It Becomes a Problem</h1>
+        <p class="hero-sub">Infrared thermal imaging identifies inflammation, saddle fit issues,
+          lameness, hoof concerns, and more — with no radiation, no prodding, and no stress to
+          your horse. All in the comfort of their own barn.</p>
+        <a href="contact.html" class="hero-btn">Schedule a Scan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE TRIO -->
+  <div class="image-trio">
+    <div class="container">
+      <div class="trio-grid">
+        <img src="images/ir_horse.jpg" alt="Infrared thermal scan of horse">
+        <img src="images/horse.jpg" alt="Horse thermal imaging">
+        <img src="images/ir_dog.jpg" alt="Infrared thermal scan of dog">
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO + USE CASES -->
+  <section class="combined-section">
+    <div class="container">
+      <div class="combined-grid">
+
+        <div>
+          <p class="section-label">Why Thermal Imaging?</p>
+          <h2 class="section-h2">Physiological Imaging for Your Horse</h2>
+          <p style="font-size:0.97em; line-height:1.78; color:var(--text-soft); margin-bottom:16px;">
+            Thermal imaging is being recognized in the horse world as an effective diagnostic modality.
+            It helps locate areas of inflammation BEFORE they become bigger problems — assisting saddle
+            fit, helping vets find mystery lameness, monitoring hoof health, and tracking healing.
+          </p>
+          <p style="font-size:0.97em; line-height:1.78; color:var(--text-soft); margin-bottom:16px;">
+            Locate a problem that is stressed BEFORE the affected tissue becomes damaged, and find the
+            CAUSE by utilizing infrared's physiological imaging — much different than anatomical imaging
+            such as X-ray.
+          </p>
+          <div style="background:var(--cream); border-left:3px solid var(--thermal); padding:14px 18px; border-radius:0 var(--radius) var(--radius) 0; font-size:0.92em; line-height:1.65; color:var(--text); font-style:italic;">
+            All of this with NO radiation, no poking or prodding, no compression — in the comfort
+            of your horse's OWN barn.
+          </div>
+        </div>
+
+        <div class="combined-right">
+          <h3>Thermal Imaging Can Help With:</h3>
+          <div class="use-grid">
+            <div class="use-item"><div class="use-dot"></div><span>Pre-Purchase Exams</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>Hoof Balancing</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>Inflammation Detection</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>General Diagnostics</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>Saddle Fit Assessment</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>Muscle / Nerve Injury</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>Monitor Healing</span></div>
+            <div class="use-item"><div class="use-dot"></div><span>Preventive Medicine</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEES -->
+  <section class="fees-section">
+    <div class="container">
+      <div class="fees-layout">
+
+        <div>
+          <p class="section-label">Pricing</p>
+          <h2 class="section-h2">Scan Fees</h2>
+          <table class="fees-table">
+            <thead>
+              <tr>
+                <th>Scan Type</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Horse Full Scan (recommended)</td><td>$350</td></tr>
+              <tr><td>Horse Limited Scan</td><td>$250</td></tr>
+              <tr><td>Horse Saddle Fit</td><td>$350</td></tr>
+              <tr><td>Horse Full Scan + Saddle Fit</td><td>$600</td></tr>
+              <tr><td>Multiple Scans at One Location (discount per horse)</td><td>−$50</td></tr>
+              <tr><td>Spot Scans for Follow-up Care (per image)</td><td>$25</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="2">*Additional travel charges may apply depending on location.</td></tr>
+            </tfoot>
+          </table>
+          <div class="fees-notes">
+            <p>*Return fee of $150 applies if horse is not ready (did not follow protocols).</p>
+            <p>*Scans come complete with a veterinary report of findings and recommendations.</p>
+            <p>*Inquire via the contact page for other animals or specific requests.</p>
+            <p>*Serving Chester, Lancaster, Montgomery &amp; Berks Counties · DE · MD · NJ.</p>
+          </div>
+        </div>
+
+        <div class="fees-aside">
+          <h3>Ready to Book?</h3>
+          <p>Please visit the forms page for client forms and preparation protocols before your
+            appointment. Following protocols ensures the best possible scan results.</p>
+          <a href="contact.html" class="contact-link">Contact Patti Today</a>
+          <br>
+          <a href="forms.html" class="contact-link" style="background:var(--navy-soft); margin-top:0;">
+            View Forms &amp; Protocols
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD SADDLE FIT -->
+  <div class="download-bar">
+    <div class="container">
+      <div class="dl-inner">
+        <div class="dl-text">
+          <h3>Saddle Fit Prep Document</h3>
+          <p>Download before your saddle fit appointment to ensure the best results.</p>
+        </div>
+        <a href="images/EquineIR_Saddle_Fit_Prep_2013-1.pdf" target="_blank" class="dl-btn">
+          Download Saddle Fit Guide
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREDENTIALS -->
+  <div class="credentials-bar">
+    <div class="container">
+      <div class="cred-inner">
+        <div class="cred-item">
+          <img src="images/UnitedInfraredSmallTypeLogo.jpg" alt="United Infrared Certified">
+          <span>United Infrared Certified</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <a href="http://www.equineir.com" target="_blank">
+            <img src="images/EquineIRLogo-300x187.png" alt="EquineIR Trained">
+          </a>
+          <span>EquineIR Trained</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <img src="images/HiddenReigns-360x360.png" alt="Hidden Reigns Thermal Imaging">
+          <span>Hidden Reigns Thermal Imaging</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Schedule an Equine Scan?</h2>
+      <p>We come to your barn — no trailering required.</p>
+      <div class="cta-buttons">
+        <a href="tel:610-888-2807" class="cta-btn-primary">Call (610) 888-2807</a>
+        <a href="contact.html" class="cta-btn-outline">Send a Message</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">Horse &amp; Rider Thermal Imaging &nbsp;·&nbsp; Honey Brook, PA</div>
+      <div class="footer-contact">
+        <a href="mailto:palukas88@gmail.com">palukas88@gmail.com</a><br>
+        <a href="tel:610-888-2807">(610) 888-2807</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('main-menu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
