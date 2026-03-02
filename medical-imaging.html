@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!--
+  Name of File: medical-imaging.html
+  Created: Feb 28th, 2026
+  Created By: Claude and Uncle Burnie (aka Computer Genius)
+  Changes Made: Full modern redesign matching indextest.html design system. Self-contained CSS.
+                Screening types as cards, policies/protocols as clean sections, credentials bar, CTA footer.
+-->
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medical Imaging | Horse &amp; Rider Thermal Imaging</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --navy:      #0d1b2a;
+      --navy-mid:  #1a2e42;
+      --navy-soft: #253d54;
+      --thermal:   #c8601a;
+      --thermal-lt:#e07a38;
+      --cream:     #f7f4ef;
+      --white:     #ffffff;
+      --text:      #1c2832;
+      --text-soft: #4a5a68;
+      --border:    #dde3e9;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --radius:    6px;
+      --shadow-sm: 0 2px 8px rgba(13,27,42,0.10);
+      --shadow-md: 0 6px 24px rgba(13,27,42,0.14);
+      --shadow-lg: 0 16px 48px rgba(13,27,42,0.18);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    img  { max-width: 100%; height: auto; display: block; }
+    a    { color: var(--thermal); text-decoration: none; }
+    a:hover { color: var(--thermal-lt); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* UTILITY BAR */
+    .utility-bar { background: var(--navy); padding: 9px 0; font-size: 0.82em; font-weight: 500; }
+    .utility-bar .inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .utility-bar .social-links { display: flex; gap: 14px; }
+    .utility-bar .social-links a { color: rgba(255,255,255,0.55); font-weight: 600; letter-spacing: 0.05em; transition: color var(--transition); }
+    .utility-bar .social-links a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info { color: rgba(255,255,255,0.75); display: flex; gap: 24px; align-items: center; }
+    .utility-bar .contact-info a { color: rgba(255,255,255,0.90); transition: color var(--transition); }
+    .utility-bar .contact-info a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info .divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+
+    /* NAV */
+    .main-nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .nav-brand img { height: 38px; width: auto; }
+    .nav-links { display: flex; list-style: none; gap: 2px; }
+    .nav-links li a { display: block; padding: 8px 13px; font-size: 0.86em; font-weight: 500; color: var(--text-soft); border-radius: var(--radius); transition: background var(--transition), color var(--transition); white-space: nowrap; }
+    .nav-links li a:hover { background: var(--cream); color: var(--navy); }
+    .nav-links li.active a { background: var(--cream); color: var(--thermal); font-weight: 600; }
+    .nav-toggle { display: none; background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 7px 11px; cursor: pointer; font-size: 1.1em; color: var(--navy); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--navy); padding: 52px 0 48px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 45%; background: url('images/medical.jpg') center/cover no-repeat; opacity: 0.18; }
+    .page-hero .hero-content { position: relative; z-index: 1; max-width: 620px; }
+    .page-hero .page-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal-lt); margin-bottom: 12px; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2em, 4vw, 3.2em); font-weight: 600; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+    .page-hero .hero-sub { font-size: 1.05em; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 28px; }
+    .hero-btn { display: inline-block; background: var(--thermal); color: white; padding: 13px 28px; border-radius: var(--radius); font-weight: 600; font-size: 0.92em; transition: background var(--transition), transform var(--transition); }
+    .hero-btn:hover { background: var(--thermal-lt); color: white; transform: translateY(-2px); }
+
+    /* INTRO STRIP */
+    .intro-strip { background: var(--cream); padding: 40px 0; border-bottom: 1px solid var(--border); }
+    .strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .intro-item { display: flex; gap: 14px; align-items: flex-start; }
+    .intro-item .intro-icon { font-size: 1.5em; flex-shrink: 0; margin-top: 2px; }
+    .intro-item strong { display: block; font-size: 0.85em; font-weight: 600; color: var(--navy); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .intro-item p { font-size: 0.9em; color: var(--text-soft); line-height: 1.6; }
+
+    /* POSSIBILITIES */
+    .possibilities { padding: 64px 0; background: var(--white); }
+    .section-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal); margin-bottom: 10px; }
+    .section-h2 { font-family: var(--font-display); font-size: clamp(1.6em, 3vw, 2.3em); font-weight: 600; color: var(--navy); margin-bottom: 20px; line-height: 1.2; }
+    .poss-layout { display: grid; grid-template-columns: 1fr 340px; gap: 56px; align-items: start; }
+    .poss-text p { font-size: 0.97em; line-height: 1.78; color: var(--text-soft); margin-bottom: 20px; }
+    .poss-list { list-style: none; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px; }
+    .poss-list li { display: flex; align-items: center; gap: 10px; font-size: 0.95em; color: var(--text); }
+    .poss-list li::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--thermal); flex-shrink: 0; }
+    .poss-image { border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .poss-image img { width: 100%; height: 280px; object-fit: cover; }
+
+    /* SCREENING TYPES */
+    .screening-section { padding: 64px 0; background: var(--cream); }
+    .screening-section .section-note { font-size: 0.92em; color: var(--text-soft); margin-bottom: 36px; }
+    .screening-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .screening-card { background: var(--white); border-radius: 10px; padding: 28px; box-shadow: var(--shadow-sm); border-top: 3px solid var(--navy); transition: box-shadow var(--transition), transform var(--transition); }
+    .screening-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .screening-card.accent { border-top-color: var(--thermal); }
+    .screening-card h3 { font-family: var(--font-display); font-size: 1.25em; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .screening-card p { font-size: 0.9em; line-height: 1.7; color: var(--text-soft); margin-bottom: 12px; }
+    .screening-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .screening-card ul li { font-size: 0.88em; color: var(--text-soft); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+    .screening-card ul li::before { content: '→'; color: var(--thermal); font-weight: 600; flex-shrink: 0; font-size: 0.85em; margin-top: 1px; }
+    .full-width { grid-column: 1 / -1; }
+    .three-col-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+
+    /* RECOGNITION BAND */
+    .recognition-band { background: var(--navy-mid); padding: 36px 0; }
+    .rec-inner { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: center; }
+    .rec-seal { font-family: var(--font-display); font-size: 2.5em; color: var(--thermal-lt); font-weight: 700; text-align: center; line-height: 1; }
+    .recognition-band p { font-size: 0.9em; line-height: 1.75; color: rgba(255,255,255,0.70); }
+    .recognition-band strong { color: rgba(255,255,255,0.92); }
+
+    /* POLICIES */
+    .policies-section { padding: 64px 0; background: var(--white); }
+    .policies-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 36px; }
+    .policy-card { padding: 28px; border-radius: 10px; background: var(--cream); border: 1px solid var(--border); }
+    .policy-card .policy-icon { font-size: 1.8em; margin-bottom: 12px; }
+    .policy-card h3 { font-family: var(--font-display); font-size: 1.2em; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .policy-card p { font-size: 0.9em; line-height: 1.72; color: var(--text-soft); }
+
+    /* DOWNLOAD */
+    .download-bar { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0; }
+    .dl-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .dl-text h3 { font-family: var(--font-display); font-size: 1.3em; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .dl-text p { font-size: 0.9em; color: var(--text-soft); }
+    .dl-btn { display: inline-block; background: var(--navy); color: white; padding: 12px 26px; border-radius: var(--radius); font-weight: 600; font-size: 0.9em; transition: background var(--transition); }
+    .dl-btn:hover { background: var(--navy-soft); color: white; }
+
+    /* CREDENTIALS */
+    .credentials-bar { padding: 40px 0; background: var(--white); border-bottom: 1px solid var(--border); }
+    .cred-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .cred-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .cred-item img { height: 52px; width: auto; opacity: 0.85; filter: grayscale(20%); transition: opacity var(--transition), filter var(--transition); }
+    .cred-item img:hover { opacity: 1; filter: grayscale(0%); }
+    .cred-item span { font-size: 0.78em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+    .cred-divider { width: 1px; height: 56px; background: var(--border); }
+
+    /* CTA */
+    .cta-section { padding: 64px 0; background: var(--navy); text-align: center; }
+    .cta-section h2 { font-family: var(--font-display); font-size: clamp(1.6em, 3vw, 2.4em); font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .cta-section p { font-size: 1em; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary { display: inline-block; background: var(--thermal); color: white; padding: 15px 32px; border-radius: var(--radius); font-weight: 600; font-size: 0.95em; transition: background var(--transition), transform var(--transition); }
+    .cta-btn-primary:hover { background: var(--thermal-lt); color: white; transform: translateY(-2px); }
+    .cta-btn-outline { display: inline-block; background: transparent; color: white; padding: 15px 32px; border-radius: var(--radius); font-weight: 600; font-size: 0.95em; border: 1.5px solid rgba(255,255,255,0.35); transition: border-color var(--transition), background var(--transition); }
+    .cta-btn-outline:hover { border-color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); color: white; }
+
+    /* FOOTER */
+    .site-footer { background: #07111c; padding: 32px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { font-family: var(--font-display); font-size: 1.1em; color: rgba(255,255,255,0.7); }
+    .footer-contact { text-align: right; font-size: 0.88em; color: rgba(255,255,255,0.5); line-height: 1.8; }
+    .footer-contact a { color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    .footer-contact a:hover { color: var(--thermal-lt); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero .hero-content { animation: fadeUp 0.6s ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .poss-layout { grid-template-columns: 1fr; }
+      .poss-image { display: none; }
+      .screening-grid { grid-template-columns: 1fr; }
+      .full-width { grid-column: 1; }
+      .three-col-list { grid-template-columns: 1fr; }
+      .policies-grid { grid-template-columns: 1fr; }
+      .strip-grid { grid-template-columns: 1fr; gap: 20px; }
+      .rec-inner { grid-template-columns: 1fr; text-align: center; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 62px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 8px 16px 16px; box-shadow: var(--shadow-md); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .page-hero::before { display: none; }
+      .dl-inner { flex-direction: column; text-align: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- UTILITY BAR -->
+  <div class="utility-bar">
+    <div class="container inner">
+      <div class="social-links">
+        <a href="https://www.facebook.com/patti.lukas.3" target="_blank">FB</a>
+        <a href="http://twitter.com/PattiLukas" target="_blank">TW</a>
+        <a href="https://www.linkedin.com/in/patti-lukas" target="_blank">LI</a>
+      </div>
+      <div class="contact-info">
+        <a href="tel:610-888-2807">610.888.2807</a>
+        <div class="divider"></div>
+        <a href="mailto:hiddenreigns@gmail.com">hiddenreigns@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <img src="images/thermography1.png" alt="Horse & Rider Thermal Imaging">
+      </div>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">&#9776;</button>
+      <ul class="nav-links" id="main-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="equine-imaging.html">Equine Imaging</a></li>
+        <li class="active"><a href="medical-imaging.html">Medical Imaging</a></li>
+        <li><a href="ir-gallery.html">IR Gallery</a></li>
+        <li><a href="protocols.html">Protocols</a></li>
+        <li><a href="forms.html">Forms</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="page-label">Medical Thermal Imaging</p>
+        <h1>See What Standard<br>Imaging Cannot</h1>
+        <p class="hero-sub">Painless, non-invasive infrared thermography that detects inflammation,
+          lymphatic congestion, and hormonal imbalances — before they become serious problems.
+          No radiation. No compression. No discomfort.</p>
+        <a href="contact.html" class="hero-btn">Schedule Your Scan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="container">
+      <div class="strip-grid">
+        <div class="intro-item">
+          <div class="intro-icon">🚫</div>
+          <div>
+            <strong>Zero Radiation</strong>
+            <p>Unlike X-ray, CT, or mammography — completely safe for repeated use.</p>
+          </div>
+        </div>
+        <div class="intro-item">
+          <div class="intro-icon">🔍</div>
+          <div>
+            <strong>Early Detection</strong>
+            <p>Detects pre-cursors to cancer, stroke, and heart disease before symptoms appear.</p>
+          </div>
+        </div>
+        <div class="intro-item">
+          <div class="intro-icon">📋</div>
+          <div>
+            <strong>Full Report Included</strong>
+            <p>Every scan includes a doctor-reviewed report of findings and recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POSSIBILITIES -->
+  <section class="possibilities">
+    <div class="container">
+      <div class="poss-layout">
+        <div class="poss-text">
+          <p class="section-label">Why Thermal Imaging?</p>
+          <h2 class="section-h2">Possibilities for Your Health</h2>
+          <p>While our "Standard of Care" uses imaging systems — Angiograms, MRI, Cat Scans,
+            Ultrasound, and Mammograms — that lack the ability to identify pre-cursors to disease,
+            infrared thermal imaging detects the most fundamental factors, including:</p>
+          <ul class="poss-list">
+            <li>Chronic (prolonged) inflammation</li>
+            <li>Lymphatic congestion</li>
+            <li>Estrogen dominance</li>
+          </ul>
+          <p>Be proactive with your health. The body is fearfully and wonderfully made and when
+            operating properly can heal itself in so many ways. Find out where the issues are early
+            so you have the highest opportunity for good health. Be the BEST YOU that YOU can be.</p>
+        </div>
+        <div class="poss-image">
+          <img src="images/medical.jpg" alt="Medical thermal imaging scan">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENING TYPES -->
+  <section class="screening-section">
+    <div class="container">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-h2">Types of Thermal Screenings</h2>
+      <p class="section-note">Call for current pricing &nbsp;·&nbsp; <a href="tel:610-888-2807">610.888.2807</a></p>
+      <div class="screening-grid">
+
+        <div class="screening-card">
+          <h3>Breast Screening</h3>
+          <p>Be proactive by screening for inflammation, lymphatic congestion, and hormonal imbalances.
+            Very early detection saves lives AND breasts.</p>
+          <ul>
+            <li>Tumors of the breast</li>
+            <li>Inflammatory conditions of the breast and chest</li>
+            <li>Lymph congestion in the breast and chest</li>
+          </ul>
+        </div>
+
+        <div class="screening-card">
+          <h3>Half Body Screening</h3>
+          <p>From the top of the head to just above the pubic bone — includes all major organs,
+            lymphatics, breasts, periodontal issues, Carotid artery, and coronary concerns.</p>
+          <ul>
+            <li>Full cranial and thyroid (includes Carotid Artery)</li>
+            <li>Periodontal inflammation</li>
+            <li>Full breast scan and lymph node activity</li>
+            <li>Full back (upper &amp; lower)</li>
+            <li>Stomach, intestines, kidneys, colon, ovaries, uterus</li>
+          </ul>
+        </div>
+
+        <div class="screening-card">
+          <h3>Full Body Screening</h3>
+          <p>From the top of the head to the bottom of the feet — everything in the Half Body
+            Scan plus legs, lymphatics in the upper thighs, phlebitis, varicose veins, and more.</p>
+          <ul>
+            <li>Complete top-to-toe thermal map</li>
+            <li>Varicosity and phlebitis detection</li>
+            <li>Lower extremity lymphatic review</li>
+          </ul>
+        </div>
+
+        <div class="screening-card accent">
+          <h3>Sports Screening</h3>
+          <p>Locate neuromusculoskeletal injuries, back pain, joint pain, and stress fractures
+            for optimal rehabilitation planning.</p>
+          <ul>
+            <li>Muscle and nerve injury mapping</li>
+            <li>Joint inflammation assessment</li>
+            <li>Return-to-competition prognosis</li>
+          </ul>
+        </div>
+
+        <div class="screening-card full-width">
+          <h3>Additional Screening Types</h3>
+          <p>We also offer specialized screenings — contact us to discuss your specific situation.</p>
+          <ul class="three-col-list">
+            <li>Infants &amp; Children</li>
+            <li>Spot Views</li>
+            <li>Before &amp; After Monitoring</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOGNITION BAND -->
+  <div class="recognition-band">
+    <div class="container">
+      <div class="rec-inner">
+        <div class="rec-seal">✦</div>
+        <p>
+          <strong>Digital Infrared Thermal Imaging (DITI) has been recognized as a viable diagnostic
+          tool since 1987</strong> by the <strong>AMA Council on Scientific Affairs</strong>, the
+          <strong>ACA Council on Diagnostic Imaging</strong>, the <strong>Congress of Neurosurgeons</strong>
+          (1988), and the <strong>American Academy of Physical Medicine and Rehabilitation</strong> (1990).
+          Studies show 96% interobserver reliability for low back pain and 98% test efficiency for
+          knee pain assessment.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- POLICIES & PROTOCOLS -->
+  <section class="policies-section">
+    <div class="container">
+      <p class="section-label">What to Expect</p>
+      <h2 class="section-h2">Policies &amp; Protocols</h2>
+      <div class="policies-grid">
+        <div class="policy-card">
+          <div class="policy-icon">👩‍⚕️</div>
+          <h3>About Your Thermographer</h3>
+          <p>Patti is a certified thermographer — not a doctor. She will take the best scans possible
+            for the reading doctor to analyze. You are welcome to share the report with your personal
+            doctor or dentist.</p>
+        </div>
+        <div class="policy-card">
+          <div class="policy-icon">📄</div>
+          <h3>Your Report</h3>
+          <p>Scans are analyzed and a full report of findings and recommendations is delivered within
+            two weeks. Patti can review it with you, or you can have the reading doctor go over it
+            in detail via video call for a small additional charge.</p>
+        </div>
+        <div class="policy-card">
+          <div class="policy-icon">📋</div>
+          <h3>Scan Protocols</h3>
+          <p>To obtain the best possible and accurate scans, you must follow the preparation protocols
+            outlined in the forms section. Thermal imaging is an amazing tool, but preparation is
+            essential to get the most out of this modality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD FORM -->
+  <div class="download-bar">
+    <div class="container">
+      <div class="dl-inner">
+        <div class="dl-text">
+          <h3>Client Wellness Entry Form</h3>
+          <p>Download and complete before your appointment to save time.</p>
+        </div>
+        <a href="images/patient-entry-formA8x11.jpg" target="_blank" class="dl-btn">Download Form</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREDENTIALS -->
+  <div class="credentials-bar">
+    <div class="container">
+      <div class="cred-inner">
+        <div class="cred-item">
+          <img src="images/UnitedInfraredSmallTypeLogo.jpg" alt="United Infrared Certified">
+          <span>United Infrared Certified</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <a href="http://www.equineir.com" target="_blank">
+            <img src="images/EquineIRLogo-300x187.png" alt="EquineIR Trained">
+          </a>
+          <span>EquineIR Trained</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <img src="images/HiddenReigns-360x360.png" alt="Hidden Reigns Thermal Imaging">
+          <span>Hidden Reigns Thermal Imaging</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Schedule Your Medical Scan?</h2>
+      <p>Call today or send a message — we come to you.</p>
+      <div class="cta-buttons">
+        <a href="tel:610-888-2807" class="cta-btn-primary">Call (610) 888-2807</a>
+        <a href="contact.html" class="cta-btn-outline">Send a Message</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">Horse &amp; Rider Thermal Imaging &nbsp;·&nbsp; Honey Brook, PA</div>
+      <div class="footer-contact">
+        <a href="mailto:palukas88@gmail.com">palukas88@gmail.com</a><br>
+        <a href="tel:610-888-2807">(610) 888-2807</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('main-menu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
