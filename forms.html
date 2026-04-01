@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--
+  Name of File: forms.html
+  Created: Apr 1st, 2026
+  Created By: Claude and Uncle Burnie (aka Computer Genius)
+  Changes Made: Initial build - full modern redesign matching site design system.
+                Download cards for all four forms, online patient intake CTA.
+-->
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Forms | Horse &amp; Rider Thermal Imaging</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --navy:      #0d1b2a;
+      --navy-mid:  #1a2e42;
+      --navy-soft: #253d54;
+      --thermal:   #c8601a;
+      --thermal-lt:#e07a38;
+      --cream:     #f7f4ef;
+      --white:     #ffffff;
+      --text:      #1c2832;
+      --text-soft: #4a5a68;
+      --border:    #dde3e9;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --radius:    6px;
+      --shadow-sm: 0 2px 8px rgba(13,27,42,0.10);
+      --shadow-md: 0 6px 24px rgba(13,27,42,0.14);
+      --shadow-lg: 0 16px 48px rgba(13,27,42,0.18);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    img  { max-width: 100%; height: auto; display: block; }
+    a    { color: var(--thermal); text-decoration: none; }
+    a:hover { color: var(--thermal-lt); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* UTILITY BAR */
+    .utility-bar { background: var(--navy); padding: 9px 0; font-size: 0.82em; font-weight: 500; }
+    .utility-bar .inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .utility-bar .social-links { display: flex; gap: 14px; }
+    .utility-bar .social-links a { color: rgba(255,255,255,0.55); font-weight: 600; letter-spacing: 0.05em; transition: color var(--transition); }
+    .utility-bar .social-links a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info { color: rgba(255,255,255,0.75); display: flex; gap: 24px; align-items: center; }
+    .utility-bar .contact-info a { color: rgba(255,255,255,0.90); transition: color var(--transition); }
+    .utility-bar .contact-info a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info .divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+
+    /* NAV */
+    .main-nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .nav-brand img { height: 38px; width: auto; }
+    .nav-links { display: flex; list-style: none; gap: 2px; }
+    .nav-links li a { display: block; padding: 8px 13px; font-size: 0.86em; font-weight: 500; color: var(--text-soft); border-radius: var(--radius); transition: background var(--transition), color var(--transition); white-space: nowrap; }
+    .nav-links li a:hover { background: var(--cream); color: var(--navy); }
+    .nav-links li.active a { background: var(--cream); color: var(--thermal); font-weight: 600; }
+    .nav-toggle { display: none; background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 7px 11px; cursor: pointer; font-size: 1.1em; color: var(--navy); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--navy); padding: 52px 0 48px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 45%; background: url('images/ir_horse.jpg') center/cover no-repeat; opacity: 0.15; }
+    .page-hero .hero-content { position: relative; z-index: 1; max-width: 620px; }
+    .page-hero .page-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal-lt); margin-bottom: 12px; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2em, 4vw, 3.2em); font-weight: 600; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+    .page-hero .hero-sub { font-size: 1.05em; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+    /* ONLINE INTAKE BAND */
+    .intake-band { background: var(--thermal); padding: 28px 0; }
+    .intake-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .intake-text h3 { font-family: var(--font-display); font-size: 1.3em; font-weight: 600; color: white; margin-bottom: 4px; }
+    .intake-text p { font-size: 0.9em; color: rgba(255,255,255,0.82); }
+    .intake-btn { display: inline-block; background: white; color: var(--thermal); padding: 12px 26px; border-radius: var(--radius); font-weight: 700; font-size: 0.9em; transition: background var(--transition), transform var(--transition); white-space: nowrap; }
+    .intake-btn:hover { background: var(--cream); color: var(--thermal); transform: translateY(-2px); }
+
+    /* DOWNLOADS SECTION */
+    .downloads-section { padding: 64px 0; background: var(--white); }
+    .section-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal); margin-bottom: 10px; }
+    .section-h2 { font-family: var(--font-display); font-size: clamp(1.6em, 3vw, 2.3em); font-weight: 600; color: var(--navy); margin-bottom: 8px; line-height: 1.2; }
+    .section-intro { font-size: 0.97em; color: var(--text-soft); line-height: 1.7; margin-bottom: 40px; }
+
+    .forms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+    .form-card { background: var(--cream); border-radius: 10px; padding: 28px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 16px; transition: box-shadow var(--transition), transform var(--transition); }
+    .form-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .form-card-top { display: flex; align-items: flex-start; gap: 16px; }
+    .form-icon { font-size: 2em; flex-shrink: 0; }
+    .form-card h3 { font-family: var(--font-display); font-size: 1.2em; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .form-card p { font-size: 0.9em; color: var(--text-soft); line-height: 1.65; }
+    .form-tag { display: inline-block; font-size: 0.74em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; margin-bottom: 6px; }
+    .form-tag.equine { background: rgba(200,96,26,0.12); color: var(--thermal); }
+    .form-tag.medical { background: rgba(13,27,42,0.10); color: var(--navy); }
+    .form-download-btn { display: block; width: 100%; text-align: center; padding: 12px 20px; border-radius: var(--radius); font-weight: 600; font-size: 0.9em; background: var(--navy); color: white; transition: background var(--transition); }
+    .form-download-btn:hover { background: var(--navy-soft); color: white; }
+
+    /* PROTOCOLS REMINDER */
+    .reminder-band { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0; }
+    .reminder-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .reminder-text h3 { font-family: var(--font-display); font-size: 1.2em; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .reminder-text p { font-size: 0.9em; color: var(--text-soft); }
+    .reminder-btn { display: inline-block; background: var(--thermal); color: white; padding: 12px 26px; border-radius: var(--radius); font-weight: 600; font-size: 0.9em; transition: background var(--transition); white-space: nowrap; }
+    .reminder-btn:hover { background: var(--thermal-lt); color: white; }
+
+    /* CREDENTIALS */
+    .credentials-bar { padding: 40px 0; background: var(--white); border-bottom: 1px solid var(--border); }
+    .cred-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .cred-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .cred-item img { height: 52px; width: auto; opacity: 0.85; filter: grayscale(20%); transition: opacity var(--transition), filter var(--transition); }
+    .cred-item img:hover { opacity: 1; filter: grayscale(0%); }
+    .cred-item span { font-size: 0.78em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+    .cred-divider { width: 1px; height: 56px; background: var(--border); }
+
+    /* CTA */
+    .cta-section { padding: 64px 0; background: var(--navy); text-align: center; }
+    .cta-section h2 { font-family: var(--font-display); font-size: clamp(1.6em, 3vw, 2.4em); font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .cta-section p { font-size: 1em; color: rgba(255,255,255,0.65); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn-primary { display: inline-block; background: var(--thermal); color: white; padding: 15px 32px; border-radius: var(--radius); font-weight: 600; font-size: 0.95em; transition: background var(--transition), transform var(--transition); }
+    .cta-btn-primary:hover { background: var(--thermal-lt); color: white; transform: translateY(-2px); }
+    .cta-btn-outline { display: inline-block; background: transparent; color: white; padding: 15px 32px; border-radius: var(--radius); font-weight: 600; font-size: 0.95em; border: 1.5px solid rgba(255,255,255,0.35); transition: border-color var(--transition), background var(--transition); }
+    .cta-btn-outline:hover { border-color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.07); color: white; }
+
+    /* FOOTER */
+    .site-footer { background: #07111c; padding: 32px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand { font-family: var(--font-display); font-size: 1.1em; color: rgba(255,255,255,0.7); }
+    .footer-contact { text-align: right; font-size: 0.88em; color: rgba(255,255,255,0.5); line-height: 1.8; }
+    .footer-contact a { color: rgba(255,255,255,0.75); transition: color var(--transition); }
+    .footer-contact a:hover { color: var(--thermal-lt); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero .hero-content { animation: fadeUp 0.6s ease both; }
+
+    @media (max-width: 760px) {
+      .forms-grid { grid-template-columns: 1fr; }
+      .intake-inner { flex-direction: column; }
+      .reminder-inner { flex-direction: column; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 62px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 8px 16px 16px; box-shadow: var(--shadow-md); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .page-hero::before { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- UTILITY BAR -->
+  <div class="utility-bar">
+    <div class="container inner">
+      <div class="social-links">
+        <a href="https://www.facebook.com/patti.lukas.3" target="_blank">FB</a>
+        <a href="http://twitter.com/PattiLukas" target="_blank">TW</a>
+        <a href="https://www.linkedin.com/in/patti-lukas" target="_blank">LI</a>
+      </div>
+      <div class="contact-info">
+        <a href="tel:610-888-2807">610.888.2807</a>
+        <div class="divider"></div>
+        <a href="mailto:hiddenreigns@gmail.com">hiddenreigns@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <img src="images/thermography1.png" alt="Horse & Rider Thermal Imaging">
+      </div>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">&#9776;</button>
+      <ul class="nav-links" id="main-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="equine-imaging.html">Equine Imaging</a></li>
+        <li><a href="medical-imaging.html">Medical Imaging</a></li>
+        <li><a href="protocols.html">Protocols</a></li>
+        <li class="active"><a href="forms.html">Forms</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="page-label">Client Resources</p>
+        <h1>Forms &amp; Documents</h1>
+        <p class="hero-sub">Download any forms you need before your appointment, or complete
+          the online patient intake form from any device.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONLINE INTAKE BAND -->
+  <div class="intake-band">
+    <div class="container">
+      <div class="intake-inner">
+        <div class="intake-text">
+          <h3>Online Patient Intake Form</h3>
+          <p>Complete your medical intake form online before your appointment — no printing required.</p>
+        </div>
+        <a href="patient-intake.html" class="intake-btn">Complete Online Form →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOADS -->
+  <section class="downloads-section">
+    <div class="container">
+      <p class="section-label">Downloadable Forms</p>
+      <h2 class="section-h2">Forms &amp; Prep Documents</h2>
+      <p class="section-intro">Download and review the appropriate documents before your appointment.
+        Equine prep documents should be read carefully — protocols must be followed for best results.</p>
+
+      <div class="forms-grid">
+
+        <div class="form-card">
+          <div class="form-card-top">
+            <div class="form-icon">🐴</div>
+            <div>
+              <span class="form-tag equine">Equine</span>
+              <h3>Client &amp; Horse History Form</h3>
+            </div>
+          </div>
+          <p>Complete history form for your horse including health background, performance concerns,
+            and current issues. Bring to your equine appointment.</p>
+          <a href="images/CLIENT_and_HORSE_History_1509.pdf" target="_blank" class="form-download-btn">
+            Download PDF
+          </a>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card-top">
+            <div class="form-icon">🩺</div>
+            <div>
+              <span class="form-tag medical">Medical</span>
+              <h3>Client Wellness Entry Form</h3>
+            </div>
+          </div>
+          <p>Patient wellness and health history form for medical thermal imaging appointments.
+            Complete and bring to your appointment, or use the online version above.</p>
+          <a href="images/patient-entry-formA8x11.jpg" target="_blank" class="form-download-btn">
+            Download Form
+          </a>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card-top">
+            <div class="form-icon">🐎</div>
+            <div>
+              <span class="form-tag equine">Equine</span>
+              <h3>Saddle Fit Prep Document</h3>
+            </div>
+          </div>
+          <p>Required preparation guidelines for saddle fit thermal imaging appointments.
+            Read before your appointment to ensure the best possible scan results.</p>
+          <a href="images/EquineIR_Saddle_Fit_Prep_2013-1.pdf" target="_blank" class="form-download-btn">
+            Download PDF
+          </a>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card-top">
+            <div class="form-icon">📋</div>
+            <div>
+              <span class="form-tag equine">Equine</span>
+              <h3>EquineIR Preparation Document</h3>
+            </div>
+          </div>
+          <p>Full EquineIR preparation protocol document. Review all guidelines prior to your
+            equine thermal imaging appointment to ensure optimal scan accuracy.</p>
+          <a href="images/EquineIR_Preparation_1408.pdf" target="_blank" class="form-download-btn">
+            Download PDF
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTOCOLS REMINDER -->
+  <div class="reminder-band">
+    <div class="container">
+      <div class="reminder-inner">
+        <div class="reminder-text">
+          <h3>Review the Protocols Page</h3>
+          <p>Make sure you're familiar with all preparation requirements before your appointment.</p>
+        </div>
+        <a href="protocols.html" class="reminder-btn">View Protocols</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREDENTIALS -->
+  <div class="credentials-bar">
+    <div class="container">
+      <div class="cred-inner">
+        <div class="cred-item">
+          <img src="images/UnitedInfraredSmallTypeLogo.jpg" alt="United Infrared Certified">
+          <span>United Infrared Certified</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <a href="http://www.equineir.com" target="_blank">
+            <img src="images/EquineIRLogo-300x187.png" alt="EquineIR Trained">
+          </a>
+          <span>EquineIR Trained</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <img src="images/HiddenReigns-360x360.png" alt="Hidden Reigns Thermal Imaging">
+          <span>Hidden Reigns Thermal Imaging</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Schedule Your Thermal Scan?</h2>
+      <p>Call today or send a message — we come to you.</p>
+      <div class="cta-buttons">
+        <a href="tel:610-888-2807" class="cta-btn-primary">Call (610) 888-2807</a>
+        <a href="contact.html" class="cta-btn-outline">Send a Message</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">Horse &amp; Rider Thermal Imaging &nbsp;·&nbsp; Honey Brook, PA</div>
+      <div class="footer-contact">
+        <a href="mailto:palukas88@gmail.com">palukas88@gmail.com</a><br>
+        <a href="tel:610-888-2807">(610) 888-2807</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('main-menu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
