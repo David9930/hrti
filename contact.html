@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<!--
+  Name of File: contact.html
+  Created: Apr 1st, 2026
+  Created By: Claude and Uncle Burnie (aka Computer Genius)
+  Changes Made: Initial build - contact form with area-of-interest checkboxes.
+                Submits via contact.js to ContactCode.gs (Google Apps Script),
+                which emails hiddenreigns@gmail.com and texts Patti via carrier SMS gateway.
+-->
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Horse &amp; Rider Thermal Imaging</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --navy:      #0d1b2a;
+      --navy-mid:  #1a2e42;
+      --navy-soft: #253d54;
+      --thermal:   #c8601a;
+      --thermal-lt:#e07a38;
+      --cream:     #f7f4ef;
+      --white:     #ffffff;
+      --text:      #1c2832;
+      --text-soft: #4a5a68;
+      --border:    #dde3e9;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --radius:    6px;
+      --shadow-sm: 0 2px 8px rgba(13,27,42,0.10);
+      --shadow-md: 0 6px 24px rgba(13,27,42,0.14);
+      --shadow-lg: 0 16px 48px rgba(13,27,42,0.18);
+      --transition: 0.25s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    img  { max-width: 100%; height: auto; display: block; }
+    a    { color: var(--thermal); text-decoration: none; }
+    a:hover { color: var(--thermal-lt); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+    /* UTILITY BAR */
+    .utility-bar { background: var(--navy); padding: 9px 0; font-size: 0.82em; font-weight: 500; }
+    .utility-bar .inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .utility-bar .social-links { display: flex; gap: 14px; }
+    .utility-bar .social-links a { color: rgba(255,255,255,0.55); font-weight: 600; letter-spacing: 0.05em; transition: color var(--transition); }
+    .utility-bar .social-links a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info { color: rgba(255,255,255,0.75); display: flex; gap: 24px; align-items: center; }
+    .utility-bar .contact-info a { color: rgba(255,255,255,0.90); transition: color var(--transition); }
+    .utility-bar .contact-info a:hover { color: var(--thermal-lt); }
+    .utility-bar .contact-info .divider { width: 1px; height: 14px; background: rgba(255,255,255,0.2); }
+
+    /* NAV */
+    .main-nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .nav-brand img { height: 38px; width: auto; }
+    .nav-links { display: flex; list-style: none; gap: 2px; }
+    .nav-links li a { display: block; padding: 8px 13px; font-size: 0.86em; font-weight: 500; color: var(--text-soft); border-radius: var(--radius); transition: background var(--transition), color var(--transition); white-space: nowrap; }
+    .nav-links li a:hover { background: var(--cream); color: var(--navy); }
+    .nav-links li.active a { background: var(--cream); color: var(--thermal); font-weight: 600; }
+    .nav-toggle { display: none; background: none; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 7px 11px; cursor: pointer; font-size: 1.1em; color: var(--navy); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--navy); padding: 52px 0 48px; position: relative; overflow: hidden; }
+    .page-hero .hero-content { position: relative; z-index: 1; max-width: 620px; }
+    .page-hero .page-label { font-size: 0.78em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--thermal-lt); margin-bottom: 12px; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2em, 4vw, 3.2em); font-weight: 600; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+    .page-hero .hero-sub { font-size: 1.05em; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+    /* CONTACT LAYOUT */
+    .contact-section { padding: 64px 0 80px; background: var(--white); }
+    .contact-layout { display: grid; grid-template-columns: 360px 1fr; gap: 32px; align-items: start; }
+
+    /* INFO PANEL */
+    .info-panel { background: var(--navy); border-radius: 12px; padding: 36px 30px; color: white; }
+    .info-panel h2 { font-family: var(--font-display); font-size: 1.5em; font-weight: 600; color: white; margin-bottom: 10px; }
+    .info-panel .info-intro { font-size: 0.92em; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 28px; }
+
+    .info-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 22px; }
+    .info-row .info-icon { font-size: 1.2em; flex-shrink: 0; margin-top: 1px; }
+    .info-row .info-label { font-size: 0.74em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--thermal-lt); margin-bottom: 4px; }
+    .info-row .info-value { font-size: 0.95em; color: rgba(255,255,255,0.9); line-height: 1.5; }
+    .info-row .info-value a { color: white; }
+    .info-row .info-value a:hover { color: var(--thermal-lt); }
+
+    .info-divider { height: 1px; background: rgba(255,255,255,0.12); margin: 24px 0; }
+
+    .social-row { display: flex; gap: 12px; }
+    .social-row a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); font-size: 0.78em; font-weight: 700; transition: background var(--transition), color var(--transition); }
+    .social-row a:hover { background: var(--thermal); color: white; }
+
+    /* FORM CARD */
+    .form-card { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 36px; }
+    .form-card h2 { font-family: var(--font-display); font-size: 1.5em; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+    .form-card .form-intro { font-size: 0.92em; color: var(--text-soft); margin-bottom: 26px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-group label { font-size: 0.82em; font-weight: 600; color: var(--navy); }
+    .form-group .optional-tag { font-weight: 400; color: var(--text-soft); font-size: 0.85em; text-transform: none; letter-spacing: 0; }
+    .form-group input,
+    .form-group textarea {
+      font-family: var(--font-body);
+      font-size: 0.95em;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white);
+      color: var(--text);
+      transition: border-color var(--transition);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { outline: none; border-color: var(--thermal); }
+    .form-group textarea { resize: vertical; min-height: 110px; font-family: var(--font-body); }
+
+    /* INTEREST CHECKBOXES */
+    .interest-group { margin-bottom: 22px; }
+    .interest-group > label.group-label { display: block; font-size: 0.82em; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .interest-options { display: flex; gap: 10px; flex-wrap: wrap; }
+    .interest-option { position: relative; }
+    .interest-option input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .interest-option label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 30px;
+      background: var(--white);
+      font-size: 0.88em;
+      font-weight: 500;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all var(--transition);
+      user-select: none;
+    }
+    .interest-option label::before {
+      content: '';
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+    .interest-option input[type="checkbox"]:checked + label {
+      border-color: var(--thermal);
+      background: rgba(200,96,26,0.08);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .interest-option input[type="checkbox"]:checked + label::before {
+      border-color: var(--thermal);
+      background: var(--thermal);
+      box-shadow: inset 0 0 0 3px var(--white);
+    }
+    .interest-option input[type="checkbox"]:focus-visible + label { outline: 2px solid var(--thermal); outline-offset: 2px; }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--thermal);
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .submit-btn:hover:not(:disabled) { background: var(--thermal-lt); transform: translateY(-2px); }
+    .submit-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+    .form-status { margin-top: 16px; font-size: 0.9em; line-height: 1.6; padding: 12px 16px; border-radius: var(--radius); display: none; }
+    .form-status.show { display: block; }
+    .form-status.success { background: rgba(34,139,87,0.10); color: #1f6e44; border: 1px solid rgba(34,139,87,0.25); }
+    .form-status.error { background: rgba(200,40,40,0.08); color: #a52a2a; border: 1px solid rgba(200,40,40,0.22); }
+
+    .form-success-state { display: none; text-align: center; padding: 40px 20px; }
+    .form-success-state.show { display: block; }
+    .form-success-state .success-icon { font-size: 2.6em; margin-bottom: 14px; }
+    .form-success-state h3 { font-family: var(--font-display); font-size: 1.5em; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .form-success-state p { font-size: 0.95em; color: var(--text-soft); line-height: 1.6; }
+
+    /* CREDENTIALS */
+    .credentials-bar { padding: 40px 0; background: var(--white); border-top: 1px solid var(--border); }
+    .cred-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .cred-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .cred-item img { height: 52px; width: auto; opacity: 0.85; filter: grayscale(20%); transition: opacity var(--transition), filter var(--transition); }
+    .cred-item img:hover { opacity: 1; filter: grayscale(0%); }
+    .cred-item span { font-size: 0.78em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+    .cred-item .cred-sub { font-size: 0.72em; font-weight: 500; letter-spacing: 0.03em; text-transform: none; color: var(--text-soft); opacity: 0.75; margin-top: -4px; }
+    .cred-divider { width: 1px; height: 56px; background: var(--border); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero .hero-content { animation: fadeUp 0.6s ease both; }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 62px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 8px 16px 16px; box-shadow: var(--shadow-md); }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .form-card { padding: 26px 20px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- UTILITY BAR -->
+  <div class="utility-bar">
+    <div class="container inner">
+      <div class="social-links">
+        <a href="https://www.facebook.com/patti.lukas.3" target="_blank">FB</a>
+        <a href="http://twitter.com/PattiLukas" target="_blank">TW</a>
+        <a href="https://www.linkedin.com/in/patti-lukas" target="_blank">LI</a>
+      </div>
+      <div class="contact-info">
+        <a href="tel:610-888-2807">610.888.2807</a>
+        <div class="divider"></div>
+        <a href="mailto:hiddenreigns@gmail.com">hiddenreigns@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <img src="images/thermography1.png" alt="Horse & Rider Thermal Imaging">
+      </div>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">&#9776;</button>
+      <ul class="nav-links" id="main-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="equine-imaging.html">Equine Imaging</a></li>
+        <li><a href="medical-imaging.html">Medical Imaging</a></li>
+        <li><a href="protocols.html">Protocols</a></li>
+        <li><a href="forms.html">Forms</a></li>
+        <li class="active"><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="hero-content">
+        <p class="page-label">Get In Touch</p>
+        <h1>Let's Talk</h1>
+        <p class="hero-sub">Questions about a scan, ready to schedule, or not sure where to start?
+          Send a quick message and Patti will get back to you directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- INFO PANEL -->
+        <div class="info-panel">
+          <h2>Contact Info</h2>
+          <p class="info-intro">Prefer to call or email directly? Reach Patti here.</p>
+
+          <div class="info-row">
+            <span class="info-icon">📞</span>
+            <div>
+              <div class="info-label">Phone</div>
+              <div class="info-value"><a href="tel:610-888-2807">(610) 888-2807</a></div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <span class="info-icon">✉️</span>
+            <div>
+              <div class="info-label">Email</div>
+              <div class="info-value"><a href="mailto:hiddenreigns@gmail.com">hiddenreigns@gmail.com</a></div>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <div>
+              <div class="info-label">Location</div>
+              <div class="info-value">Honey Brook, PA<br>Serving Chester, Lancaster, Montgomery &amp; Berks Counties · DE · MD · NJ</div>
+            </div>
+          </div>
+
+          <div class="info-divider"></div>
+
+          <div class="social-row">
+            <a href="https://www.facebook.com/patti.lukas.3" target="_blank" aria-label="Facebook">FB</a>
+            <a href="http://twitter.com/PattiLukas" target="_blank" aria-label="Twitter">TW</a>
+            <a href="https://www.linkedin.com/in/patti-lukas" target="_blank" aria-label="LinkedIn">LI</a>
+          </div>
+        </div>
+
+        <!-- FORM CARD -->
+        <div class="form-card">
+          <h2>Send a Message</h2>
+          <p class="form-intro">Fill out the form below — Patti receives an instant notification and
+            typically replies within one business day.</p>
+
+          <form id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone <span class="optional-tag">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel">
+            </div>
+
+            <div class="interest-group">
+              <label class="group-label">I'm interested in: <span class="optional-tag">(select all that apply)</span></label>
+              <div class="interest-options">
+                <div class="interest-option">
+                  <input type="checkbox" id="interest-equine" name="interest" value="Equine Imaging">
+                  <label for="interest-equine">🐴 Equine Imaging</label>
+                </div>
+                <div class="interest-option">
+                  <input type="checkbox" id="interest-medical" name="interest" value="Medical Imaging">
+                  <label for="interest-medical">🩺 Medical Imaging</label>
+                </div>
+                <div class="interest-option">
+                  <input type="checkbox" id="interest-unsure" name="interest" value="Not Sure / General Question">
+                  <label for="interest-unsure">❓ Not Sure / General Question</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="Tell Patti a bit about what you're looking for..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">Send Message</button>
+
+            <div class="form-status" id="form-status"></div>
+          </form>
+
+          <div class="form-success-state" id="form-success">
+            <div class="success-icon">✅</div>
+            <h3>Message Sent!</h3>
+            <p>Thanks for reaching out — Patti has been notified and will get back to you soon.<br>
+              Need a faster answer? Call <a href="tel:610-888-2807">(610) 888-2807</a>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <div class="credentials-bar">
+    <div class="container">
+      <div class="cred-inner">
+        <div class="cred-item">
+          <img src="images/UnitedInfraredSmallTypeLogo.jpg" alt="United Infrared Certified">
+          <span>United Infrared Certified</span>
+          <span class="cred-sub">CIT 10291 · Since 2013</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <a href="http://www.equineir.com" target="_blank">
+            <img src="images/EquineIRLogo-300x187.png" alt="EquineIR Trained">
+          </a>
+          <span>EquineIR Trained</span>
+        </div>
+        <div class="cred-divider"></div>
+        <div class="cred-item">
+          <img src="images/HiddenReigns-360x360.png" alt="Hidden Reigns Thermal Imaging">
+          <span>Hidden Reigns Thermal Imaging</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="contact.js"></script>
+  <script>
+    function toggleNav() {
+      document.getElementById('main-menu').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
