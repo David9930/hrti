@@ -11,7 +11,7 @@
   2. Copy the deployment URL and paste it below as SCRIPT_URL.
 */
 
-const SCRIPT_URL = "PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6ZusC88M-DqkdVuI-zdvoQQnL66dMNPDrrUW6N-Kkh9nXLndg5M07XxQB7QWB_2djQw/exec";
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('contact-form');
